@@ -32,7 +32,7 @@ public class Detect {
         SERVICES("System services", 70),
         SYSTEM_BINARIES("ROM binaries and daemons", 70),
         RUNNING_PROCESSES("Running processes", 200),
-        PACKAGES("Packages", 70),
+        PACKAGES("Packages", 70, "This test looks for specific package names that are installed"),
         SUSPICIOUS_CLASSES("Suspicious classes", 0);
 
         public String name;
@@ -48,8 +48,9 @@ public class Detect {
         DetectTest(String name, int confidence) {
             this.name = name;
             this.confidenceLevel = confidence;
-            description = "No description found for test."; // use @string here
-                                                            // later
+            this.description = "No description found for test."; // use @string
+                                                                 // here
+            // later
         }
     }
 

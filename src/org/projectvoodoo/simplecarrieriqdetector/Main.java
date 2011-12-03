@@ -60,7 +60,7 @@ public class Main extends Activity {
                     findViewById(R.id.details_list);
 
             for (DetectTest test : detect.getFound().keySet()) {
-                DetectedView detectedView = new DetectedView(getApplicationContext(), detect, test);
+                DetectedView detectedView = new DetectedView(Main.this, detect, test);
                 details.addView(detectedView);
             }
         }
