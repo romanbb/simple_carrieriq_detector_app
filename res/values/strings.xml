@@ -6,7 +6,7 @@
     <string name="detection_score">Detection score: (not fully reliable yet)</string>
     <string name="not_found">Carrier IQ was not found</string>
     <string name="found_active">Carrier IQ found and is active</string>
-    <string name="found_inactive">Carrier IQ elements found but it looks inactive</string>
+    <string name="found_inactive">Carrier IQ elements found\n− however it seems inactive</string>
 	<string name="confidence_level_title">Confidence Level: </string>
 	<string name="unknown">Unknown</string>
 	<string name="nothing_found">Nothing found</string>
