@@ -40,11 +40,8 @@ public class DetectedView extends LinearLayout {
 
     private TextView title;
     private TextView confidenceLevel;
-    private LinearLayout resultsLayout;
     private RelativeLayout root;
     private ImageView icon;
-
-    private Resources resources;
 
     private ArrayList<String> lines = new ArrayList<String>();
 
@@ -53,8 +50,6 @@ public class DetectedView extends LinearLayout {
         mContext = context;
         this.test = test;
         this.detect = detect;
-
-        resources = context.getResources();
 
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         init();
@@ -74,24 +69,37 @@ public class DetectedView extends LinearLayout {
         icon = (ImageView) findViewById(R.id.info_image);
         icon.setOnClickListener(buttonOnClickListener);
 
-        // resultsLayout = (LinearLayout) findViewById(R.id.results_layout);
         confidenceLevel = (TextView) confidenceLayout.findViewById(R.id.confidence_level);
+        setConfidenceLevel(test.confidenceLevel);
 
+        // add all of found entries
         for (String line : detect.getFound().get(test)) {
             addResult(line);
         }
 
-        if (detect.getFound().get(test).size() == 0) { // gray for nothing
+        if (detect.getFound().get(test).size() > 0) {
+            if (checkIfActive()) {
+                root.setBackgroundColor(COLOR_ACTIVE);
+            } else {
+                root.setBackgroundColor(COLOR_INACTIVE);
+            }
+        } else {
+            // no results to show
             root.setBackgroundColor(COLOR_NOTFOUND);
-        } else if (test.toString().equals(DetectTest.RUNNING_PROCESSES.name())
-                && detect.getFound().size() > 0) { // process is active, color
-                                                   // red
-            root.setBackgroundColor(COLOR_ACTIVE);
-        } else { // detected, not running, yellow
-            root.setBackgroundColor(COLOR_INACTIVE);
         }
+    }
 
-        setConfidenceLevel(test.confidenceLevel);
+    private boolean checkIfActive() {
+        // mark active if there are processes running
+        if (test.toString().equals(DetectTest.RUNNING_PROCESSES.name()))
+            return true;
+
+        // also mark active if we are sure the packages are installed
+        //else if (test.toString().equals(DetectTest.PACKAGES.name()))
+        //    return true;
+
+        else
+            return false;
     }
 
     public void addResult(String s) {
