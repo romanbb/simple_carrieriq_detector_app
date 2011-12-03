@@ -10,4 +10,5 @@
 	<string name="confidence_level_title">Confidence Level: </string>
 	<string name="unknown">Unknown</string>
 	<string name="nothing_found">Nothing found</string>
+     <string name="notice">Application in development: please read Android Market description</string>
 </resources>

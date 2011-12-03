@@ -35,6 +35,9 @@ public class Main extends Activity {
         protected void onPostExecute(Integer detectionScore) {
             super.onPostExecute(detectionScore);
 
+            ProgressBar pb = (ProgressBar) findViewById(R.id.detectionProgress);
+            pb.setVisibility(View.GONE);
+
             TextView resultDisplay = (TextView) findViewById(R.id.result_display);
             if (detectionScore == 0) {
                 resultDisplay.setText(R.string.not_found);
@@ -53,7 +56,8 @@ public class Main extends Activity {
             else
                 numericScore.setVisibility(View.GONE);
 
-            LinearLayout details = (LinearLayout) findViewById(R.id.details_list);
+            LinearLayout details = (LinearLayout)
+                    findViewById(R.id.details_list);
 
             for (DetectTest test : detect.getFound().keySet()) {
                 DetectedView detectedView = new DetectedView(getApplicationContext(), detect, test);

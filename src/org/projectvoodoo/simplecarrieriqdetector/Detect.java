@@ -1,19 +1,20 @@
 
 package org.projectvoodoo.simplecarrieriqdetector;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Detect {
 
     private static final String TAG = "Voodoo SimpleCarrierIQDetector";
 
-    private HashMap<DetectTest, ArrayList<String>> found = new HashMap<DetectTest, ArrayList<String>>();
+    private LinkedHashMap<DetectTest, ArrayList<String>> found = new LinkedHashMap<DetectTest, ArrayList<String>>();
 
     private Context mContext;
 
@@ -36,10 +37,19 @@ public class Detect {
 
         public String name;
         public int confidenceLevel;
+        public String description;
+
+        DetectTest(String name, int confidence, String desc) {
+            this.name = name;
+            this.confidenceLevel = confidence;
+            description = desc;
+        }
 
         DetectTest(String name, int confidence) {
             this.name = name;
             this.confidenceLevel = confidence;
+            description = "No description found for test."; // use @string here
+                                                            // later
         }
     }
 
@@ -140,8 +150,8 @@ public class Detect {
     private void findInKallsyms() {
 
         String[] elements = {
-                    "_ciq_",
-            };
+                "_ciq_",
+        };
 
         ArrayList<String> lines = Utils.findInFile("/proc/kallsyms", elements);
 
@@ -331,7 +341,7 @@ public class Detect {
         return score;
     }
 
-    public HashMap<DetectTest, ArrayList<String>> getFound() {
+    public LinkedHashMap<DetectTest, ArrayList<String>> getFound() {
         return found;
     }
 }
